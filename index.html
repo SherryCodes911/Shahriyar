@@ -1,195 +1,730 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shahriyar Shahid</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f4f7fa;
-      color: #1a202c;
-      transition: all 0.3s ease;
-    }
-    .gradient-text {
-      background: linear-gradient(to right, #1e1b4b, #0f766e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahriyar Shahid | AI & Machine Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent-glow: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 50%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
 
-    .fade-in {
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    /* Typewriter effect */
-    .typewriter {
-      overflow: hidden;
-      border-right: .15em solid #4F46E5;
-      white-space: nowrap;
-      animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
-    }
-    .nav-links {
-      display: none;
-    }
-    .nav-links.active {
-      display: block;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
+        body.has-custom-cursor,
+        body.has-custom-cursor * {
+            cursor: none;
+        }
 
-    @keyframes blink-caret {
-      50% { border-color: transparent }
-    }
-  </style>
+        .nav-link.active {
+            color: white;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 65ch;
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-padding {
+            padding: 8rem 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            z-index: 102;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            z-index: 102;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(79, 70, 229, 0.1), transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.05), transparent 40%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text .eyebrow {
+            color: #3b82f6;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s var(--ease-out) forwards;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s var(--ease-out) 0.2s forwards;
+        }
+
+        .typewriter-container {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            min-height: 1.6em;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
+
+        .hero-sub {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s var(--ease-out) 0.6s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s var(--ease-out) 0.8s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.6rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+            border: 1px solid white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: scaleIn 1s var(--ease-out) 0.4s forwards;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: var(--text-secondary);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: 0.875rem;
+            color: #52525b;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            .hero-text .eyebrow, .typewriter-container, .hero-actions {
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-image {
+                max-width: 300px;
+            }
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 100%;
+                background: black;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.4s var(--ease-out);
+                z-index: 101;
+            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links li { font-size: 1.5rem; opacity: 0; transform: translateY(20px); transition: 0.3s; }
+            .nav-links.active li { opacity: 1; transform: translateY(0); }
+
+            /* Stagger menu items */
+            .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+
+            /* Hide cursor on mobile */
+            .cursor-dot, .cursor-outline { display: none; }
+            body.has-custom-cursor,
+            body.has-custom-cursor * {
+                cursor: auto !important;
+            }
+        }
+    </style>
 </head>
-<body class="overflow-x-hidden">
-  <!-- Header -->
-  <header class="fixed top-0 w-full bg-white shadow-md z-10">
-      <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <div class="text-2xl font-bold gradient-text animate-on-scroll cursor-pointer" onclick="scrollToTop()">SHERRY</div>
-        <div class="hidden md:flex space-x-8">
-          <a href="#home" class="nav-link relative text-gray-800 hover:text-blue-600 transition-colors duration-300">Home</a>
-          <a href="#about" class="nav-link relative text-gray-800 hover:text-blue-600 transition-colors duration-300">About</a>
-          <a href="#blog" class="nav-link relative text-gray-800 hover:text-blue-600 transition-colors duration-300">Blog</a>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" data-magnetic>SHERRY</a>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" class="nav-link" data-magnetic>Home</a></li>
+                    <li><a href="#about" class="nav-link" data-magnetic>About</a></li>
+                    <li><a href="#blog" class="nav-link" data-magnetic>Blog</a></li>
+                </ul>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
         </div>
+    </header>
 
-        <button class="md:hidden text-gray-800" id="menuToggle">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <!-- Mobile Nav Menu -->
-    <div id="mobileMenu" class="md:hidden hidden px-6 pb-4">
-      <a href="#home" class="block py-2 text-gray-800 hover:text-blue-600">Home</a>
-      <a href="#about" class="block py-2 text-gray-800 hover:text-blue-600">About</a>
-      <a href="#blog" class="block py-2 text-gray-800 hover:text-blue-600">Blog</a>
-    </div>
-  </nav>
-  </header>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <span class="eyebrow">Hello, I'm</span>
+                        <h1>Shahriyar Shahid</h1>
+                        <div class="typewriter-container">
+                            <span id="typewriter"></span><span class="cursor">|</span>
+                        </div>
+                        <p class="hero-sub">
+                            Welcome to My Portfolio. Made with passion and modern tech.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="resume.pdf" target="_blank" class="btn btn-primary" data-magnetic>
+                                <span>View Resume</span>
+                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </a>
+                            <a href="#about" class="btn btn-secondary" data-magnetic>
+                                More Info
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image-wrapper">
+                        <img src="Profile.jpg" alt="Shahriyar Shahid" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- About Section -->
+        <section id="about" class="section-padding">
+            <div class="container">
+                <div class="glass-card reveal">
+                    <h2>About Me</h2>
+                    <p>
+                        I am a sophomore AI major, constantly uncovering how machines learn, reason, and respond.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-  <!-- Intro Section -->
-  <section id="intro" class="min-h-screen flex items-center justify-center bg-white pt-20">
-    <div class="text-center">
-      <img src="Profile.jpg" alt="Shahriyar Shahid" class="w-48 h-48 rounded-full object-cover mx-auto fade-in">
-      <p class="text-gray-600 mt-4 text-lg fade-in delay-200">Hello I'm</p>
-      <h2 class="text-3xl font-bold text-gray-800 mt-2 fade-in delay-400">Shahriyar Shahid</h2>
-      <p class="typewriter text-xl mt-4 text-gray-700 inline-block w-fit mx-auto">
-        Python, AI/ML, OpenCV, Keras
-      </p>
-    </div>
-  </section>
+        <!-- Blog Section -->
+        <section id="blog" class="section-padding">
+            <div class="container">
+                <div class="glass-card reveal">
+                    <h2>Blog & Updates</h2>
+                    <p>
+                        I’ll soon be sharing posts on AI/ML, tech, tools, and experiences.
+                        Stay tuned — the blog is coming soon!
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Home Section -->
-  <section id="home" class="min-h-screen flex items-center justify-center pt-20 bg-white">
-    <div class="text-center">
-      <h2 class="text-5xl font-bold text-gray-800 mb-4 fade-in">Welcome to My Portfolio</h2>
-      <p class="text-lg text-gray-600 mb-6 fade-in delay-200">Made with passion and modern tech</p>
-      <div class="flex justify-center space-x-4 fade-in delay-400">
-        <a href="https://github.com/SherryCodes911" target="_blank" class="text-black-600 hover:text-black-600 transition-colors duration-300">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.621.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.448-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 7.844c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.698 1.03 1.591 1.03 2.682 0 3.84-2.336 4.687-4.562 4.933.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.577.688.479C19.138 20.166 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/shahriyar-shahid-332652272" target="_blank" class="text-black-600 hover:text-black-600 transition-colors duration-300">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-1.337-.026-3.06-1.862-3.06-1.863 0-2.148 1.455-2.148 2.962v5.702h-3v-11h2.881v1.524h.041c.401-.761 1.382-1.562 2.843-1.562 3.042 0 3.607 2.001 3.607 4.603v6.435z"/>
-          </svg>
-        </a>
-        <a href="resume.pdf" target="_blank" class="text-black-600 hover:underline">Resume</a>
-      </div>
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="mailto:shahriyarphulpoto@gmail.com" class="social-link" aria-label="Email" data-magnetic>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/SherryCodes911" target="_blank" class="social-link" aria-label="GitHub" data-magnetic>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.621.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.448-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 7.844c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.698 1.03 1.591 1.03 2.682 0 3.84-2.336 4.687-4.562 4.933.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.577.688.479C19.138 20.166 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/shahriyar-shahid-332652272/" target="_blank" class="social-link" aria-label="LinkedIn" data-magnetic>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-1.337-.026-3.06-1.862-3.06-1.863 0-2.148 1.455-2.148 2.962v5.702h-3v-11h2.881v1.524h.041c.401-.761 1.382-1.562 2.843-1.562 3.042 0 3.607 2.001 3.607 4.603v6.435z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="copyright">Made by Shahriyar 2025</p>
+        </div>
+    </footer>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-white"> 
-    <div class="container mx-auto px-6">
-      <h2 class="text-4xl font-bold text-gray-800 text-center mb-8 fade-in">About Me</h2>
-      <div class="text-gray-600 text-center max-w-2xl mx-auto fade-in delay-200">
-        <p>
-          I am a sophomore AI major, constantly uncovering how machine learn, reason, and respond.
-        </p>
-      </div>
-    </div>
-  </section>
+    <script>
+        // DOM Elements
+        const header = document.getElementById('header');
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+        const magneticElements = document.querySelectorAll('[data-magnetic]');
 
-<!-- Blog Section -->
-<section id="blog" class="py-20 bg-white">
-  <div class="container mx-auto px-6">
-    <h2 class="text-4xl font-bold text-gray-800 text-center mb-8 fade-in">Blog & Updates</h2>
-    <div class="fade-in delay-200 text-center text-gray-600 max-w-xl mx-auto">
-      <p class="text-lg">
-        I’ll soon be sharing posts on AI/ML, tech, tools, and experiences.
-        Stay tuned — the blog is coming soon!
-      </p>
-    </div>
-  </div>
-</section>
+        // Typewriter Effect
+        const words = ["Python", "AI/ML", "OpenCV", "Keras"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 100;
+        const deleteSpeed = 50;
+        const delayBetweenWords = 2000;
+        const typewriterElement = document.getElementById('typewriter');
 
+        function type() {
+            const currentWord = words[wordIndex];
 
-  <!-- Footer -->
-  <footer class="bg-white py-6">
-    <div class="container mx-auto px-6 text-center">
-      <div class="flex justify-center items-center space-x-4 mb-2">
-        <a href="mailto:shahriyarphulpoto@gmail.com" class="text-gray-600 hover:text-black-600 transition-colors duration-300">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
-        </a>
-        <a href="https://github.com/SherryCodes911" target="_blank" class="text-gray-600 hover:text-black-600 transition-colors duration-300">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.621.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.448-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 7.844c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.698 1.03 1.591 1.03 2.682 0 3.84-2.336 4.687-4.562 4.933.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.577.688.479C19.138 20.166 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/shahriyar-shahid-332652272/" target="_blank" class="text-gray-600 hover:text-black-600 transition-colors duration-300">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-1.337-.026-3.06-1.862-3.06-1.863 0-2.148 1.455-2.148 2.962v5.702h-3v-11h2.881v1.524h.041c.401-.761 1.382-1.562 2.843-1.562 3.042 0 3.607 2.001 3.607 4.603v6.435z"/>
-          </svg>
-        </a>
-      </div>
-      <p class="text-gray-600 mt-2">Made by Shahriyar 2025</p>
-    </div>
-  </footer>
+            if (isDeleting) {
+                typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
 
-  <script>
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section');
-      const options = {
-        threshold: 0.1
-      };
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-          }
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, delayBetweenWords);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+            }
+        }
+
+        // Start typewriter
+        setTimeout(type, 1000);
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
-      }, options);
-      sections.forEach(section => observer.observe(section));
-    });
-    const toggleButton = document.getElementById("menuToggle"); // updated selector
-    const navLinks = document.getElementById("mobileMenu");     // updated selector
-    toggleButton.addEventListener("click", () => {
-      navLinks.classList.toggle("hidden");
-    });
-  </script>
-  <script defer src="https://vercel.com/analytics/script.js"></script>
+
+        // Mobile Menu
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Animate hamburger to X
+            const spans = menuToggle.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ScrollSpy: Active Section Indicator
+        const sections = document.querySelectorAll('section[id]');
+
+        const scrollSpyOptions = {
+            threshold: 0.3,
+            rootMargin: "-20% 0px -50% 0px"
+        };
+
+        const scrollSpyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    // Remove active from all
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    // Add active to current
+                    const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, scrollSpyOptions);
+
+        sections.forEach(section => {
+            scrollSpyObserver.observe(section);
+        });
+
+        // Optimized Custom Cursor Logic
+        document.body.classList.add('has-custom-cursor');
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Dot follows immediately
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function animateCursor() {
+            const distX = mouseX - cursorX;
+            const distY = mouseY - cursorY;
+
+            cursorX += distX * 0.1;
+            cursorY += distY * 0.1;
+
+            cursorOutline.style.left = `${cursorX}px`;
+            cursorOutline.style.top = `${cursorY}px`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Magnetic Effect
+        magneticElements.forEach(elem => {
+            elem.addEventListener('mousemove', (e) => {
+                const rect = elem.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                elem.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                cursorOutline.style.transform = `translate(-50%, -50%) scale(1.5)`;
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            });
+
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'translate(0px, 0px)';
+                cursorOutline.style.transform = `translate(-50%, -50%) scale(1)`;
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+
+    </script>
+    <script defer src="https://vercel.com/analytics/script.js"></script>
 </body>
 </html>
